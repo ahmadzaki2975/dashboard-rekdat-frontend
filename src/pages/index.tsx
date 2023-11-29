@@ -237,11 +237,11 @@ function Home() {
                 <select
                   className={
                     "text-center decorated " +
-                    (var1 === "iqa"
+                    (var2 === "iqa"
                       ? "text-[#8884d8] font-semibold"
-                      : var1 === "tempc"
+                      : var2 === "tempc"
                       ? "text-[#82ca9d] font-semibold"
-                      : var1 === "humidity"
+                      : var2 === "humidity"
                       ? "text-[#DA20A2] font-semibold"
                       : "")
                   }
