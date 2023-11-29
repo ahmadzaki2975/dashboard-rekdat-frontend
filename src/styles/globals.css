@@ -3,3 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+.decorated {
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+}
