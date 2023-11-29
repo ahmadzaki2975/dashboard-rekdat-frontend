@@ -22,6 +22,7 @@ function Home() {
   const [correlation, setCorrelation] = useState(0);
   const [var1, setVar1] = useState("iqa");
   const [var2, setVar2] = useState("iqa");
+  const [showWarning, setShowWarning] = useState(false);
 
   function FormatDate(date: string) {
     // format to yyyy-mm-dd
@@ -106,14 +107,35 @@ function Home() {
     );
   }, [var1, var2, data]);
 
+  useEffect(() => {
+    console.log(window.innerWidth);
+    if (window.innerWidth < 600) {
+      setShowWarning(true);
+    }
+  }, []);
+
   return (
     <main className="bg-white min-h-screen flex flex-col justify-start py-10 items-center font-poppins">
-      <h1 className="font-bold text-[25px]">
+      { showWarning &&
+        <main className="fixed top-0 w-screen h-screen bg-black/60 backdrop-blur-[8px] z-[10] flex justify-center items-center">
+          <div className="w-[90%] max-w-[400px] sm:w-1/2 sm:max-w-[500px] px-[5%] py-8 bg-white flex flex-col justify-center items-center gap-10">
+            <p className="text-center">
+              We recommend you to open this website on a bigger screen as this
+              website is still under development for mobile devices.
+            </p>
+            <button className="bg-green-400 rounded-[5px] py-2 px-4" onClick={() => {
+              setShowWarning(false);
+            }}>Continue</button>
+          </div>
+        </main>
+      }
+
+      <h1 className="font-bold text-[25px] px-[5%] mm text-center">
         Weather and Air Quality Dashboard
       </h1>
 
       <form
-        className="grid grid-cols-4 gap-5 mt-5"
+        className="grid grid-cols-1 min-[425px]:grid-cols-2 lg:grid-cols-4 gap-5 mt-5 mx-[5%] min-[425px]:mx-5"
         onSubmit={(e) => {
           e.preventDefault();
           if (
@@ -168,14 +190,14 @@ function Home() {
           />
         </label>
         <button
-          className="bg-green-400 rounded-[5px] font-semibold hover:bg-green-500"
+          className="bg-green-400 rounded-[5px] font-semibold hover:bg-green-500 py-4 min-[425px]:py-auto"
           type="submit"
         >
           Set Input
         </button>
       </form>
 
-      <div className="mt-10 relative p-5 rounded-[10px]">
+      <div className="mt-10 relative p-5 rounded-[10px] overflow-x-scroll max-w-full">
         {loading && (
           <div className="absolute z-[1] w-full h-full bg-black/20 backdrop-blur-[8px] rounded-[10px] grid place-items-center">
             <p className="text-[28px] font-semibold animate-pulse">
@@ -194,7 +216,7 @@ function Home() {
           <Tooltip content={<CustomTooltip />} />
           <Legend />
         </LineChart>
-        <div className="flex flex-col justify-center items-center mt-8">
+        <div className="flex flex-col justify-center items-center mt-8 w-full">
           {/* <h1 className="font-semibold text-[2px]">Correlations</h1> */}
 
           <div>
