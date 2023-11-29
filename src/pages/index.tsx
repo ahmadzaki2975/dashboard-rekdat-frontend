@@ -30,22 +30,30 @@ function Home() {
     return [year, month, day].join("-");
   };
 
+  function toPascalCase(str: string) {
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
   useEffect(() => {
     setLoading(true);
+    console.log(toPascalCase(city));
     axios
       .get(
         process.env.NEXT_PUBLIC_API_URL +
-          `/join?sdate=${sdate}&edate=${edate}&city=${city}`
+          `/join?sdate=${sdate}&edate=${edate}&city=${toPascalCase(city)}`
       )
       .then((res) => {
         setData(res.data);
         console.log(res.data);
-        if (res.data.length === 0) {
+        if (res.data.length === 0 && toPascalCase(city) !== "Sleman") {
           alert("No Data");
           setSdate("2023-11-20");
           setEdate("2023-11-21");
           setCity("Sleman");
-          setRefetch(!refetch);
         }
       })
       .catch((err) => {
