@@ -18,6 +18,7 @@ function Home() {
   const [edate, setEdate] = useState("2023-11-21");
   const [city, setCity] = useState("Sleman");
   const [refetch, setRefetch] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const FormatDate = (date: string) => {
     // format to yyyy-mm-dd
@@ -30,6 +31,7 @@ function Home() {
   };
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         process.env.NEXT_PUBLIC_API_URL +
@@ -38,11 +40,20 @@ function Home() {
       .then((res) => {
         setData(res.data);
         console.log(res.data);
-        if(res.data.length === 0) alert("No Data");
+        if (res.data.length === 0) {
+          alert("No Data");
+          setSdate("2023-11-20");
+          setEdate("2023-11-21");
+          setCity("Sleman");
+          setRefetch(!refetch);
+        }
       })
       .catch((err) => {
         console.log(err);
         alert("Error");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [refetch]);
   return (
@@ -55,11 +66,21 @@ function Home() {
         className="grid grid-cols-4 gap-5 mt-5"
         onSubmit={(e) => {
           e.preventDefault();
-          if(sdate > edate) return alert("Start Date must be before End Date");
-          if(city === "") {
+          if (
+            sdate.includes("'") ||
+            edate.includes("'") ||
+            city.includes("'") ||
+            sdate.includes(";") ||
+            edate.includes(";") ||
+            city.includes(";")
+          ) {
+            return alert("Invalid Input");
+          }
+          if (sdate > edate) return alert("Start Date must be before End Date");
+          if (city === "") {
             setCity("Sleman");
-            alert("City must be filled")
-          };
+            alert("City must be filled");
+          }
           setRefetch(!refetch);
         }}
       >
@@ -101,7 +122,14 @@ function Home() {
         </button>
       </form>
 
-      <div className="mt-10">
+      <div className="mt-10 relative p-5 rounded-[10px]">
+        {loading && (
+          <div className="absolute z-[1] w-full h-full bg-black/20 backdrop-blur-[8px] rounded-[10px] grid place-items-center">
+            <p className="text-[28px] font-semibold animate-pulse">
+              Loading...
+            </p>
+          </div>
+        )}
         <LineChart width={1000} height={500} data={data}>
           <XAxis dataKey="jamcuaca" />
           <YAxis />
