@@ -144,7 +144,7 @@ function Home() {
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
           <Line type="monotone" dataKey="iqa" stroke="#8884d8" />
           <Line type="monotone" dataKey="tempc" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="humidity" stroke="#DAA520" />
+          <Line type="monotone" dataKey="humidity" stroke="#DA20A2" />
           {/* <Line type="monotone" dataKey="pressure_mbar" stroke="#82ca9d" /> */}
           <Tooltip content={<CustomTooltip />} />
         </LineChart>

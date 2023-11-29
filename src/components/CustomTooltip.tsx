@@ -64,7 +64,7 @@ export default function CustomTooltip({ active, payload, label }: any) {
               MapIQABG(dataPoint.iqa)
             }
           ></span>
-          <span className={"text-semibold " + (MapIQAText(dataPoint.iqa))}>{MapIQA(dataPoint.iqa)}</span>
+          <span className={"font-bold " + (MapIQAText(dataPoint.iqa))}>{MapIQA(dataPoint.iqa)}</span>
         </div>
         <p className="">
           Suhu:{" "}
@@ -72,7 +72,7 @@ export default function CustomTooltip({ active, payload, label }: any) {
         </p>
         <p className="">
           Humidity:{" "}
-          <span className="text-[#DAA520] font-bold">{dataPoint.humidity}</span>
+          <span className="text-[#DA20A2] font-bold">{dataPoint.humidity}</span>
         </p>
         {/* <p className="font-semibold">{`Pressure: ${dataPoint.pressure_mbar}`}</p> */}
       </div>
