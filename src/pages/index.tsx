@@ -125,7 +125,7 @@ function Home() {
             onChange={(e) => setCity(e.target.value)}
           />
         </label>
-        <button className="bg-green-400 rounded-[5px]" type="submit">
+        <button className="bg-green-400 rounded-[5px] font-semibold hover:bg-green-500" type="submit">
           Set Input
         </button>
       </form>
